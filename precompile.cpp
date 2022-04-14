@@ -6,6 +6,7 @@ using namespace std;
 int main(int argc, char *argv[]){
 	string version = argv[1];
 	assert(version == "11" || version == "14" || version == "17" || version == "20");
+	system(("g++-11 -std=c++" + version + " -DLOCAL -I/home/aeren/Precompiled_Headers -Wno-narrowing -Winvalid-pch -Wno-unused-result -fconcepts -g -fsanitize=address,undefined ./tools/testlib.h -o /home/aeren/Precompiled_Headers/testlib.h.gch").c_str());
 	system(string("mkdir -p /home/aeren/Precompiled_Headers/bits").c_str());
 	system(("g++-11 -std=c++" + version + " -DLOCAL -I/home/aeren/Precompiled_Headers -Wno-narrowing -Winvalid-pch -Wno-unused-result -fconcepts -g -fsanitize=address,undefined /usr/include/x86_64-linux-gnu/c++/11/bits/stdc++.h -o /home/aeren/Precompiled_Headers/bits/stdc++.h.gch").c_str());
 	system(string("mkdir -p /home/aeren/Precompiled_Headers/ext/pb_ds").c_str());
