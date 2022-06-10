@@ -9,19 +9,28 @@ void check_status(int status, const string &where){
 	exit(0);
 }
 
+string execution_command(string s){
+	if((int)s.size() >= 4 && s.substr((int)s.size() - 3) == ".py") s = "python3 ./" + s;
+	else s = "./" + s;
+	return s;
+}
+
 int main(int argc, char *argv[]){
 	cin.tie(0)->sync_with_stdio(0);
-	string sol_a = argv[1], sol_b = argv[2];
+	string sol_a = argv[1];
+	string sol_a_exe = execution_command(sol_a);
+	string sol_b = argv[2];
+	string sol_b_exe = execution_command(sol_b);
 	cout << "Print the results? Type (y) or (n): ";
 	cout.flush();
-	char X;
-	cin >> X;
+	char result_type;
+	cin >> result_type;
 	for(auto i = 0; ; ++ i){
-		check_status(system("./gen> ./in"), "Generator");
+		check_status(system("./gen > ./in"), "Generator");
 		auto p1 = high_resolution_clock::now();
-		check_status(system(("./" + sol_a + " < ./in > ./stress/out_a").c_str()), sol_a);
+		check_status(system((sol_a_exe + " < ./in > ./stress/out_a").c_str()), sol_a);
 		auto p2 = high_resolution_clock::now();
-		check_status(system(("./" + sol_b + " < ./in > ./stress/out_b").c_str()), sol_b);
+		check_status(system((sol_b_exe + " < ./in > ./stress/out_b").c_str()), sol_b);
 		auto p3 = high_resolution_clock::now();
 		ifstream in_a("./stress/out_a"), in_b("./stress/out_b");
 		vector<string> a, b;
@@ -41,7 +50,7 @@ int main(int argc, char *argv[]){
 			break;
 		}
 		cout << "Ok\n";
-		if(X == 'y'){
+		if(result_type == 'y'){
 			cout << sol_a << ": ";
 			for(auto s: a) cout << s << " ";
 			cout << "\n";

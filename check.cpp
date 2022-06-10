@@ -9,19 +9,28 @@ void check_status(int status, const string &where){
 	exit(0);
 }
 
+string execution_command(string s){
+	if((int)s.size() >= 4 && s.substr((int)s.size() - 3) == ".py") s = "python3 ./" + s;
+	else s = "./" + s;
+	return s;
+}
+
 int main(int argc, char *argv[]){
 	cin.tie(0)->sync_with_stdio(0);
-	string sol = argv[1], checker = argv[2];
+	string sol = argv[1];
+	string sol_exe = execution_command(sol);
+	string checker = argv[2];
+	string checker_exe = execution_command(checker);
 	cout << "Print the results? Type (y) or (n): ";
 	cout.flush();
-	char X;
-	cin >> X;
+	char result_type;
+	cin >> result_type;
 	for(auto i = 0; ; ++ i){
 		check_status(system("./gen > ./in"), "Generator");
 		auto p1 = high_resolution_clock::now();
-		check_status(system(("./" + sol + " < ./in > ./stress/out_a").c_str()), sol);
+		check_status(system((sol_exe + " < ./in > ./stress/out_a").c_str()), sol);
 		auto p2 = high_resolution_clock::now();
-		check_status(system(("(cat ./in; printf \"\\n\"; cat ./stress/out_a) | ./" + checker + " > ./stress/res").c_str()), checker);
+		check_status(system(("(cat ./in; printf \"\\n\"; cat ./stress/out_a) | " + checker_exe + " > ./stress/res").c_str()), checker);
 		ifstream in_res("./stress/res"), in_a("./stress/out_a");
 		int res;
 		in_res >> res;
@@ -37,7 +46,7 @@ int main(int argc, char *argv[]){
 			break;
 		}
 		cout << "Ok\n";
-		if(X == 'y'){
+		if(result_type == 'y'){
 			cout << sol << ": ";
 			for(auto s: a) cout << s << " ";
 			cout << "\n";
