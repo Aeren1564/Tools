@@ -2,6 +2,20 @@
 using namespace std;
 using namespace chrono;
 
+/*
+Let "sol" be the solution file
+and "gen" the generator file.
+(the binary file for c++ and the source code with extension .py for python)
+
+The program repeatedly feed the output of "gen" to "sol" until it encounters a case on which the solution produces a runtime error. The case is stored in the file "in".
+
+[Instructions]
+1. Compile "check_re.cpp" to create the binary file "check_re".
+2. Put "sol", "check_re" in the same directory.
+3. Create "stress" directory within the directory.
+4. Execute the following command: "check_re sol".
+*/
+
 void check_status(int status, const string &where){
 	if(status < 0) cout << where << " -> error: " << strerror(errno) << "\n";
 	else if(status >> 8) cout << where << " -> program exited abnormally\n";

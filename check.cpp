@@ -2,6 +2,23 @@
 using namespace std;
 using namespace chrono;
 
+/*
+Let "sol" be the solution file,
+"checker" the checker file,
+and "gen" the generator file.
+(the binary file for c++ and the source code with extension .py for python)
+
+Checker should accept the input and the output of the solution file sequentially and exit abnormally (with assert, for example) iff it the output is wrong.
+
+The program repeatedly feed the output of "gen" to "sol" until it encounters a case on which the solution produces a wrong output. The case is stored in the file "in".
+
+[Instructions]
+1. Compile "check.cpp" to create the binary file "check".
+2. Put "sol", "checker", and "check" in the same directory.
+3. Create "stress" directory within the directory.
+4. Execute the following command: "check sol checker".
+*/
+
 void check_status(int status, const string &where){
 	if(status < 0) cout << where << " -> error: " << strerror(errno) << "\n";
 	else if(status >> 8) cout << where << " -> program exited abnormally\n";
@@ -30,21 +47,12 @@ int main(int argc, char *argv[]){
 		auto p1 = high_resolution_clock::now();
 		check_status(system((sol_exe + " < ./in > ./stress/out_a").c_str()), sol);
 		auto p2 = high_resolution_clock::now();
-		check_status(system(("(cat ./in; printf \"\\n\"; cat ./stress/out_a) | " + checker_exe + " > ./stress/res").c_str()), checker);
-		ifstream in_res("./stress/res"), in_a("./stress/out_a");
-		int res;
-		in_res >> res;
+		check_status(system(("(cat ./in; printf \"\\n\"; cat ./stress/out_a) | " + checker_exe).c_str()), checker);
+		ifstream in("./stress/out_a");
 		vector<string> a;
-		for(string t; in_a >> t; a.push_back(t));
+		for(string t; in >> t; a.push_back(t));
 		cout << "Case #" << i << "\n";
 		cout << sol << ": " << duration<double>(p2 - p1).count() << " seconds" << endl;
-		if(!res){
-			cout << "WRONG ANSWER\n";
-			cout << sol << ": ";
-			for(auto s: a) cout << s << " ";
-			cout << "\n";
-			break;
-		}
 		cout << "Ok\n";
 		if(result_type == 'y'){
 			cout << sol << ": ";

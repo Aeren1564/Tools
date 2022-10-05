@@ -2,6 +2,21 @@
 using namespace std;
 using namespace chrono;
 
+/*
+Let "sol_a" be the first solution file,
+"sol_b" the second solution file,
+and "gen" the generator file
+(the binary file for c++ and the source code with extension .py for python)
+
+The program repeatedly feed the output of "gen" to "sol_a" and "sol_b" until it encounters a case on which two solutions produce different outputs. The case is stored in the file "in".
+
+[Instructions]
+1. Compile "compare.cpp" to create the binary file "compare"
+2. Put "sol_a", "sol_b", and "compare" in the same directory
+3. Create "stress" directory within the directory
+4. Execute the following command: "compare sol_a sol_b"
+*/
+
 void check_status(int status, const string &where){
 	if(status < 0) cout << where << " -> error: " << strerror(errno) << "\n";
 	else if(status >> 8) cout << where << " -> program exited abnormally\n";
