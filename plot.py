@@ -31,13 +31,25 @@ while True:
 				for p in update:
 					x, y = zip(*p)
 					plt.plot(x, y)
+					z = 0
+					for i, j in zip(x, y):
+						if z != len(x) - 1:
+							plt.annotate(chr(ord('0') + z), (i, j))
+						z += 1
 			elif name == 'polyline':
 				for p in update:
 					x, y = zip(*p)
 					plt.plot(x, y)
+					z = 0
+					for i, j in zip(x, y):
+						plt.annotate(chr(ord('0') + z), (i, j))
+						z += 1
 			elif name == 'circle':
+				z = 0
 				for x, y, r in update:
 					plt.gca().add_patch(plt.Circle((x, y), r, fill = False))
+					plt.annotate(chr(ord('0') + z), (x, y))
+					z += 1
 			else:
 				pass
 		plt.show()
