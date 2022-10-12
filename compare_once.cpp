@@ -4,11 +4,10 @@ using namespace chrono;
 
 /*
 Let "sol_a" be the first solution file,
-"sol_b" the second solution file,
-and "gen" the generator file
-(the binary file for c++ and the source code with extension .py for python)
+and "sol_b" the second solution file.
+(the binary file for c++, the source code with extension .py for python, and .class file for java)
 
-The program feed the output of "gen" to "sol_a" and "sol_b" once and check if the produced outputs differ. The case is stored in the file "in".
+The program feed the input in "in" to "sol_a" and "sol_b" once and check if the produced outputs differ. The case is stored in the file "in".
 
 [Instructions]
 1. Compile "compare_once.cpp" to create the binary file "compare_once"
@@ -25,7 +24,8 @@ void check_status(int status, const string &where){
 }
 
 string execution_command(string s){
-	if((int)s.size() >= 4 && s.substr((int)s.size() - 3) == ".py") s = "python3 ./" + s;
+	if(s.size() >= 4 && s.substr(s.size() - 3) == ".py") s = "python3 ./" + s;
+	else if(s.size() >= 7 && s.substr(s.size() - 6) == ".class") s = "java " + s.substr(0, s.size() - 6);
 	else s = "./" + s;
 	return s;
 }

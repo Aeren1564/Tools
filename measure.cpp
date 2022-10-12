@@ -2,7 +2,8 @@
 using namespace std;
 
 string execution_command(string s){
-	if((int)s.size() >= 4 && s.substr((int)s.size() - 3) == ".py") s = "python3 ./" + s;
+	if(s.size() >= 4 && s.substr(s.size() - 3) == ".py") s = "python3 ./" + s;
+	else if(s.size() >= 7 && s.substr(s.size() - 6) == ".class") s = "java " + s.substr(0, s.size() - 6);
 	else s = "./" + s;
 	return s;
 }

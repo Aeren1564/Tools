@@ -6,7 +6,7 @@ using namespace chrono;
 Let "sol" be the solution file,
 "checker" the checker file,
 and "gen" the generator file.
-(the binary file for c++ and the source code with extension .py for python)
+(the binary file for c++, the source code with extension .py for python, and .class file for java)
 
 Checker should accept the input and the output of the solution file sequentially and exit abnormally (with assert, for example) iff it the output is wrong.
 
@@ -27,7 +27,8 @@ void check_status(int status, const string &where){
 }
 
 string execution_command(string s){
-	if((int)s.size() >= 4 && s.substr((int)s.size() - 3) == ".py") s = "python3 ./" + s;
+	if(s.size() >= 4 && s.substr(s.size() - 3) == ".py") s = "python3 ./" + s;
+	else if(s.size() >= 7 && s.substr(s.size() - 6) == ".class") s = "java " + s.substr(0, s.size() - 6);
 	else s = "./" + s;
 	return s;
 }
