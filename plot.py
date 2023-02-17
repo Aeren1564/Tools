@@ -25,7 +25,7 @@ while True:
 				plt.scatter(x, y)
 				z = 0
 				for i, j in zip(x, y):
-					plt.annotate(chr(ord('0') + z), (i, j))
+					plt.annotate(z, (i, j))
 					z += 1
 			elif name == 'polygon':
 				for p in update:
@@ -34,7 +34,7 @@ while True:
 					z = 0
 					for i, j in zip(x, y):
 						if z != len(x) - 1:
-							plt.annotate(chr(ord('0') + z), (i, j))
+							plt.annotate(z, (i, j))
 						z += 1
 			elif name == 'polyline':
 				for p in update:
@@ -42,13 +42,13 @@ while True:
 					plt.plot(x, y)
 					z = 0
 					for i, j in zip(x, y):
-						plt.annotate(chr(ord('0') + z), (i, j))
+						plt.annotate(z, (i, j))
 						z += 1
 			elif name == 'circle':
 				z = 0
 				for x, y, r in update:
 					plt.gca().add_patch(plt.Circle((x, y), r, fill = False))
-					plt.annotate(chr(ord('0') + z), (x, y))
+					plt.annotate(z, (x, y))
 					z += 1
 			else:
 				pass
@@ -57,14 +57,14 @@ while True:
 	elif mode == '1' or mode == 'point':
 		n = int(input('> # of points: '))
 		for i in range(n):
-			x, y = [float(v) for v in input('> x y: ').split(' ')]
+			x, y = [float(v) for v in [v for v in input('> x y: ').split(' ')][0 : 2]]
 			updates['point']['X'].append(x)
 			updates['point']['Y'].append(y)
 
 	elif mode == '2' or mode == 'line':
 		n = int(input('> # of lines: '))
 		for i in range(n):
-			x0, y0, x1, y1 = [float(v) for v in input('> x0 y0 x1 y1: ').split(' ')]
+			x0, y0, x1, y1 = [float(v) for v in [v for v in input('> x0 y0 x1 y1: ').split(' ')][0 : 4]]
 			updates['polyline'].append([(x0, y0), (x1, y1)]);
 
 	elif mode == '3' or mode == 'polygon':
@@ -73,7 +73,7 @@ while True:
 			m = int(input('> # of vertices: '))
 			p = []
 			for j in range(m):
-				x, y = [float(v) for v in input('> x y: ').split(' ')]
+				x, y = [float(v) for v in [v for v in input('> x y: ').split(' ')][0 : 2]]
 				p.append((x, y))
 			p.append(p[0])
 			updates['polygon'].append(p)
@@ -84,13 +84,13 @@ while True:
 			m = int(input('> # of vertices: '))
 			p = []
 			for j in range(m):
-				x, y = [float(v) for v in input('> x y: ').split(' ')]
+				x, y = [float(v) for v in [v for v in input('> x y: ').split(' ')][0 : 2]]
 				p.append((x, y))
 			updates['polyline'].append(p)
 
 	elif mode == '5' or mode == 'circle':
 		n = int(input('> # of circles: '))
 		for i in range(n):
-			x, y, r = [float(v) for v in input('> x y r: ').split(' ')]
+			x, y, r = [float(v) for v in [v for v in input('> x y r: ').split(' ')][0 : 3]]
 			updates['circle'].append((x, y, r))
 	print('>')
