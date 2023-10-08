@@ -68,7 +68,6 @@ int main(int argc, char *argv[]){
 		remove_parenthese_brace_space(s);
 		remove_for_space(s);
 		replace_forint_with_forauto(s);
-		
 		remove_if_space(s);
 		remove_while_space(s);
 		cout << s << "\n";
