@@ -51,6 +51,7 @@ int main(int argc, char *argv[]){
 		s = string(tab_cnt, '\t') + s.substr(i);
 	};
 	auto insert_space_to_increment_and_decrement = [&](string &s)->void{
+		if(!s.empty() && s[0] == '#') return;
 		for(auto i = 0; i + 3 <= (int)s.size(); ++ i){
 			if(isalpha(s[i]) && s[i + 1] == s[i + 2] && (s[i + 1] == '+' || s[i + 1] == '-')) s.insert(s.begin() + i + 1, ' ');
 			if(s[i] == s[i + 1] && (s[i] == '+' || s[i] == '-') && isalpha(s[i + 2])) s.insert(s.begin() + i + 2, ' ');
@@ -61,6 +62,7 @@ int main(int argc, char *argv[]){
 	auto replace_forint_with_forauto = generate_functor("for(int ", "for(auto ", false, true);
 	auto remove_if_space = generate_functor("if (", "if(", false, true);
 	auto remove_while_space = generate_functor("while (", "while(", false, true);
+	auto remove_template_space = generate_functor("template <", "template<", false, true);
 	for(string s; getline(cin, s); ){
 		remove_tailing_space(s);
 		replace_tab_with_space(s);
@@ -70,6 +72,7 @@ int main(int argc, char *argv[]){
 		replace_forint_with_forauto(s);
 		remove_if_space(s);
 		remove_while_space(s);
+		remove_template_space(s);
 		cout << s << "\n";
 	}
 	return 0;
