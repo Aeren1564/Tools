@@ -56,6 +56,12 @@ int main(int argc, char *argv[]){
 		cout << sol_a << ": " << duration<double>(p2 - p1).count() << " seconds\n";
 		cout << sol_b << ": " << duration<double>(p3 - p2).count() << " seconds" << endl;
 		if(a != b){
+			if((int)a.size() != (int)b.size()) cout << "Token count differs, " << (int)a.size() << " tokens / " << (int)b.size() << " tokens" << "\n";
+			else{
+				int i = 0;
+				while(a[i] == b[i]) ++ i;
+				cout << i << "th token differs, " << a[i] << " / " << b[i] << "\n";
+			}
 			cout << "Failed\n";
 			cout << sol_a << ": ";
 			for(auto s: a) cout << s << " ";
