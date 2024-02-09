@@ -62,7 +62,6 @@ int main(int argc, char *argv[]){
 				while(a[i] == b[i]) ++ i;
 				cout << i << "th token differs, " << a[i] << " / " << b[i] << "\n";
 			}
-			cout << "Failed\n";
 			cout << sol_a << ": ";
 			for(auto s: a) cout << s << " ";
 			cout << "\n";

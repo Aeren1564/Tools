@@ -13,7 +13,7 @@ The program feed the input in "in" to "sol_a" and "sol_b" once and check if the 
 1. Compile "compare_once.cpp" to create the binary file "compare_once"
 2. Put "sol_a", "sol_b", and "compare_once" in the same directory
 3. Create "stress" directory within the directory
-4. Execute the following command: "compare_once sol_a sol_b"
+4. Execute the following command: "./compare_once sol_a sol_b"
 */
 
 void check_status(int status, const string &where){
@@ -52,7 +52,12 @@ int main(int argc, char *argv[]){
 	cout << sol_a << ": " << duration<double>(p2 - p1).count() << " seconds\n";
 	cout << sol_b << ": " << duration<double>(p3 - p2).count() << " seconds" << endl;
 	if(a != b){
-		cout << "Failed\n";
+		if((int)a.size() != (int)b.size()) cout << "Token count differs, " << (int)a.size() << " tokens / " << (int)b.size() << " tokens" << "\n";
+		else{
+			int i = 0;
+			while(a[i] == b[i]) ++ i;
+			cout << i << "th token differs, " << a[i] << " / " << b[i] << "\n";
+		}
 		cout << sol_a << ": ";
 		for(auto s: a) cout << s << " ";
 		cout << "\n";

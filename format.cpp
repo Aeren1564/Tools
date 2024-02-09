@@ -63,6 +63,8 @@ int main(int argc, char *argv[]){
 	auto remove_if_space = generate_functor("if (", "if(", false, true);
 	auto remove_while_space = generate_functor("while (", "while(", false, true);
 	auto remove_template_space = generate_functor("template <", "template<", false, true);
+	auto remove_const_space = generate_functor("const {", "const{", false, true);
+	auto remove_std = generate_functor("std::", "", false, true);
 	for(string s; getline(cin, s); ){
 		remove_tailing_space(s);
 		replace_tab_with_space(s);
@@ -73,6 +75,8 @@ int main(int argc, char *argv[]){
 		remove_if_space(s);
 		remove_while_space(s);
 		remove_template_space(s);
+		remove_const_space(s);
+		remove_std(s);
 		cout << s << "\n";
 	}
 	return 0;
