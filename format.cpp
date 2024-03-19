@@ -61,10 +61,14 @@ int main(int argc, char *argv[]){
 	auto remove_for_space = generate_functor("for (", "for(", false, true);
 	auto replace_forint_with_forauto = generate_functor("for(int ", "for(auto ", false, true);
 	auto remove_if_space = generate_functor("if (", "if(", false, true);
+	auto remove_else_space = generate_functor("else {", "else{", false, true);
 	auto remove_while_space = generate_functor("while (", "while(", false, true);
+	auto remove_if_constexpr_space = generate_functor("if constexpr (", "if constexpr(", false, true);
+	auto replace_else_space_with_tab = generate_functor("} else", "}INSERTSPACEelse", true, false);
 	auto remove_template_space = generate_functor("template <", "template<", false, true);
 	auto remove_const_space = generate_functor("const {", "const{", false, true);
 	auto remove_std = generate_functor("std::", "", false, true);
+	cerr << "Fomatting..." << endl;
 	for(string s; getline(cin, s); ){
 		remove_tailing_space(s);
 		replace_tab_with_space(s);
@@ -73,12 +77,16 @@ int main(int argc, char *argv[]){
 		remove_for_space(s);
 		replace_forint_with_forauto(s);
 		remove_if_space(s);
+		remove_else_space(s);
 		remove_while_space(s);
+		remove_if_constexpr_space(s);
+		replace_else_space_with_tab(s);
 		remove_template_space(s);
 		remove_const_space(s);
 		remove_std(s);
-		cout << s << "\n";
+		cout << s << endl;
 	}
+	cerr << "Done" << endl;
 	return 0;
 }
 

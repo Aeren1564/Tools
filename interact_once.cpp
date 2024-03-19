@@ -35,10 +35,15 @@ int main(int argc, char *argv[]){
 	string sol_exe = execution_command(sol);
 	string interactor = argv[2];
 	string interactor_exe = execution_command(interactor);
-	system("rm /tmp/fifo");
-	system("mkfifo /tmp/fifo");
 	auto p1 = high_resolution_clock::now();
-	check_status(system(("(cat ./in ; " + sol_exe + " < /tmp/fifo) | " + interactor_exe + " > /tmp/fifo").c_str()), "Interaction");
+	if(system(("socat SYSTEM:" + sol_exe + " SYSTEM:" + interactor_exe).c_str())){
+		cout << "Interaction exited abnormally on the following input\n";
+		ifstream in("./in");
+		for(string s; getline(in, s); ){
+			cout << s << "\n";
+		}
+		return 0;
+	}
 	auto p2 = high_resolution_clock::now();
 	cout << "Interaction duration: " << duration<double>(p2 - p1).count() << " seconds\n";
 	cout << "Ok\n";
