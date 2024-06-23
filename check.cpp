@@ -28,7 +28,8 @@ void check_status(int status, const string &where){
 
 string execution_command(string s){
 	if(s.size() >= 4 && s.substr(s.size() - 3) == ".py") s = "python3 ./" + s;
-	else if(s.size() >= 7 && s.substr(s.size() - 6) == ".class") s = "java " + s.substr(0, s.size() - 6);
+	else if(s.size() >= 7 && s.substr(s.size() - 6) == ".class") s = "java ./" + s.substr(0, s.size() - 6);
+	else if(s.size() >= 6 && s.substr(s.size() - 5) == ".sage") s = "sage ./" + s;
 	else s = "./" + s;
 	return s;
 }
