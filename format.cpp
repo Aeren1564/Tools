@@ -64,7 +64,7 @@ int main(int argc, char *argv[]){
 	auto remove_else_space = generate_functor("else {", "else{", false, true);
 	auto remove_while_space = generate_functor("while (", "while(", false, true);
 	auto remove_if_constexpr_space = generate_functor("if constexpr (", "if constexpr(", false, true);
-	auto replace_else_space_with_tab = generate_functor("} else", "}INSERTSPACEelse", true, false);
+	auto replace_else_space_with_tab = generate_functor("} else", "}else", true, false);
 	auto remove_template_space = generate_functor("template <", "template<", false, true);
 	auto remove_const_space = generate_functor("const {", "const{", false, true);
 	auto remove_std = generate_functor("std::", "", false, true);
