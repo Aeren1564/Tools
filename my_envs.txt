@@ -1,0 +1,11 @@
+- mamba
+// Deactivation
+mamba deactivate
+// sagemath
+mamba activate sage
+// qiskit
+mamba activate qiskit-env
+
+- server
+// TLE server for GF server
+ssh root@161.35.125.187
