@@ -25,7 +25,7 @@ template<class L, class R> ostream &operator<<(ostream &out, const pair<L, R> &p
 template<class Tuple, size_t N> struct _tuple_printer;
 template<class... Args> ostream &_print_tuple(ostream &out, const tuple<Args...> &t);
 template<class ...Args> ostream &operator<<(ostream &out, const tuple<Args...> &t);
-template<class T> ostream &operator<<(typename enable_if<_is_container<T>::value, ostream>::type &out, const T &arr);
+template<class T> ostream &operator<<(typename enable_if<_is_container<T>::value, ostream>::type &out, T &&arr);
 template<class T, class A, class C>
 ostream &operator<<(ostream &out, priority_queue<T, A, C> pq);
 template<size_t SZ> ostream &operator<<(ostream &out, typename bitset<SZ>::reference bit){ return out << bool(bit); }
@@ -42,7 +42,7 @@ template<class... Args> ostream &_print_tuple(ostream &out, const tuple<Args...>
 template<class ...Args> ostream &operator<<(ostream &out, const tuple<Args...> &t){
 	return _print_tuple(out, t);
 }
-template<class T> ostream &operator<<(typename enable_if<_is_container<T>::value, ostream>::type &out, const T &arr){
+template<class T> ostream &operator<<(typename enable_if<_is_container<T>::value, ostream>::type &out, T &&arr){
 	if(arr.empty()) return out << "{}";
 	out << "{";
 	for(auto it = arr.begin(); it != arr.end(); ++ it){
