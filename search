@@ -1,2 +1,3 @@
-cd "/mnt/c/users/aeren/AppData/Roaming/Sublime Text 3/Packages/User/Algorithm_Implementations_Cpp"
+cd "/mnt/c/Users/tilti/AppData/Roaming/Sublime Text 3/Packages/User/Library"
 grep -r "$*"
+bash

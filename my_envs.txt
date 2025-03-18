@@ -9,3 +9,6 @@ mamba activate qiskit-env
 - server
 // TLE server for GF server
 ssh root@161.35.125.187
+// Backing up data from TLE server
+scp -r root@161.35.125.187:~/TLE ~/git-repos/
+scp -r root@161.35.125.187:~/Remind-Me ~/git-repos/
