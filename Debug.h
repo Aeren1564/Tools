@@ -57,6 +57,40 @@ ostream &operator<<(ostream &out, priority_queue<T, A, C> pq){
 	while(!pq.empty()) a.push_back(pq.top()), pq.pop();
 	return out << a;
 }
+template<class Width, class T>
+void debug_bin_out_base(Width w, T x){
+	assert(w >= 0);
+	if constexpr(is_integral_v<T> || is_same_v<T, __int128_t> || is_same_v<T, __uint128_t>){
+		assert(x >= 0);
+		for(auto rep = w; rep; -- rep, x >>= 1) cerr << (x & 1);
+	}
+	else{
+		static_assert(_is_container<T>::value);
+		if(x.empty()) cerr << "{}";
+		cerr << "{";
+		for(auto it = x.begin(); it != x.end(); ++ it){
+			debug_bin_out_base(w, *it);
+			next(it) != x.end() ? cerr << ", " : cerr << "}";
+		}
+	}
+}
+template<class Width, class T>
+void debug_bin2_out_base(Width w, T x){
+	assert(w >= 0);
+	if constexpr(is_integral_v<T> || is_same_v<T, __int128_t> || is_same_v<T, __uint128_t>){
+		assert(x >= 0);
+		for(auto rep = w; rep; -- rep, x >>= 1) cerr << (x & 1);
+	}
+	else{
+		static_assert(_is_container<T>::value);
+		if(x.empty()) cerr << "{}";
+		cerr << "\n";
+		for(auto it = x.begin(); it != x.end(); ++ it){
+			debug_bin2_out_base(w, *it);
+			next(it) != x.end() ? cerr << ",\n" : cerr << "";
+		}
+	}
+}
 template<class Head>
 void debug_out(Head H){ cerr << H << endl; }
 template<class Head, class... Tail>
@@ -66,16 +100,29 @@ template<class Head, class... Tail>
 void debug2_out(Head H, Tail... T){ cerr << "\n"; for(auto x: H) cerr << x << ",\n"; debug2_out(T...); }
 template<class Width, class Head>
 void debug_bin_out(Width w, Head H){
-	for(auto rep = w; rep; -- rep, H >>= 1) cerr << (H & 1);
+	debug_bin_out_base(w, H);
 	cerr << endl;
 }
 template<class Width, class Head, class... Tail>
 void debug_bin_out(Width w, Head H, Tail... T){
-	for(auto rep = w; rep; -- rep, H >>= 1) cerr << (H & 1);
-	cerr << ", "; debug_bin_out(w, T...);
+	debug_bin_out_base(w, H);
+	cerr << ", ";
+	debug_bin_out(w, T...);
+}
+template<class Width, class Head>
+void debug_bin2_out(Width w, Head H){
+	debug_bin2_out_base(w, H);
+	cerr << endl;
+}
+template<class Width, class Head, class... Tail>
+void debug_bin2_out(Width w, Head H, Tail... T){
+	debug_bin2_out_base(w, H);
+	cerr << ",\n";
+	debug_bin2_out(w, T...);
 }
 enum CODE{ CCRED = 31, CCGREEN = 32, CCYELLOW = 33, CCBLUE = 34, CCDEFAULT = 39 };
 #define debug_endl() cerr << endl
 #define debug(...) cerr << "\033[" << (int)CODE(CCRED) << "mL" << setw(3) << std::left << __LINE__ << std::right << " [" << #__VA_ARGS__ << "] \033[" << (int)CODE(CCBLUE) << "m", debug_out(__VA_ARGS__), cerr << "\33[" << (int)CODE(CCDEFAULT) << "m"
 #define debug2(...) cerr << "\033[" << (int)CODE(CCRED) << "mL" << setw(3) << std::left << __LINE__ << std::right << " [" << #__VA_ARGS__ << "] \033[" << (int)CODE(CCBLUE) << "m", debug2_out(__VA_ARGS__), cerr << "\33[" << (int)CODE(CCDEFAULT) << "m"
 #define debug_bin(first, ...) cerr << "\033[" << (int)CODE(CCRED) << "mL" << setw(3) << std::left << __LINE__ << std::right << " [BIN:" << #__VA_ARGS__ << "] \033[" << (int)CODE(CCBLUE) << "m", debug_bin_out(first, __VA_ARGS__)
+#define debug_bin2(first, ...) cerr << "\033[" << (int)CODE(CCRED) << "mL" << setw(3) << std::left << __LINE__ << std::right << " [BIN:" << #__VA_ARGS__ << "] \033[" << (int)CODE(CCBLUE) << "m", debug_bin2_out(first, __VA_ARGS__)
