@@ -1,5 +1,5 @@
 template<typename T>
-using _is_container = std::integral_constant<bool, !std::is_same<T, std::string>::value && std::is_constructible<decltype(std::declval<T>().begin()), decltype(std::declval<T>().end())>::value>;
+using _is_container = std::integral_constant<bool, !std::is_same<decay_t<T>, std::string>::value && std::is_constructible<decltype(std::declval<T>().begin()), decltype(std::declval<T>().end())>::value>;
 
 ostream &operator<<(ostream &out, __uint128_t x){
 	if(!x) return out << 0;
